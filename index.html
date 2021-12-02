@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mouse Mutant Cell Atlas Data</title>
+    <meta name="description" content="">
+    <meta name="author" content="Cooper Marshall">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Mouse Mutant Cell Atlas</h1>
+        <div class="row">
+            <div class="six columns offset-by-three">
+                <label for="Trajectory" style="text-align:center;">Trajectory</label>
+                <select class="u-full-width" id="trajectory">
+                    <option value="Haematopoiesis trajectory">Haematopoiesis trajectory</option>
+                    <option value="Cardiomyocyte trajectory">Cardiomyocyte trajectory</option>
+                    <option value="Endothelial trajectory">Endothelial trajectory</option>
+                    <option value="Mesenchymal trajectory">Mesenchymal trajectory</option>
+                    <option value="Neural tube and notochord trajectory">Neural tube and notochord trajectory</option>
+                    <option value="Epithelial trajectory">Epithelial trajectory</option>
+                    <option value="Neural crest (PNS neuron) trajectory">Neural crest (PNS neuron) trajectory</option>
+                    <option value="Hepatocyte trajectory">Hepatocyte trajectory</option>
+                    <option value="Melanocyte trajectory">Melanocyte trajectory</option>
+                    <option value="Neural crest (PNS glia) trajectory">Neural crest (PNS glia) trajectory</option>
+                    <option value="Myoblast trajectory">Myoblast trajectory</option>
+                    <option value="Myotube trajectory">Myotube trajectory</option>
+                    <option value="Olfactory sensory neuron trajectory">Olfactory sensory neuron trajectory</option>
+                </select>
+            </div>
+        </div>
+        <div class="row card-container">
+            <div class="card six columns" id="plot_1">
+                <div class="container">
+                    <div class="row">
+                        <div class="four columns">
+                            <label for="background_1">Background Mutant</label>
+                            <select class="u-full-width" id="background_1">
+                                <option value="G4">G4</option>
+                                <option value="FVB">FVB</option>
+                                <option value="C57BL6">C57BL6</option>
+                            </select>
+                        </div>
+                        <div class="four columns">
+                            <label for="annotation_1">Annotation</label>
+                            <select class="u-full-width" id="annotation_1">
+                                <option value="sub_trajectory">Sub Trajectory</option>
+                                <option value="total_mRNA">Total mRNA</option>
+                                <option value="mutant_rt">Mutant Group</option>
+                            </select>
+                        </div>
+                        <div class="three columns">
+                            <label for="gene_1">Gene</label>
+                            <select class="u-full-width" id="gene_1">
+                                <option value=""></option>
+                                <option value="Prim2">Prim2</option>
+                            </select>
+                        </div>
+                        <div class="one column">
+                            <label for="legend-1">Show Legend</label>
+                            <input type="checkbox" id="legend-1" checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="plot u-max-full-width" id="scatter-plot-1"></div>
+            </div>
+            <div class="card six columns" id="plot_2">
+                <div class="container">
+                    <div class="row">
+                        <div class="four columns">
+                            <label for="background_2">Background Mutant</label>
+                            <select class="u-full-width" id="background_2">
+                                <option value="G4">G4</option>
+                                <option value="FVB">FVB</option>
+                                <option value="C57BL6">C57BL6</option>
+                            </select>
+                        </div>
+                        <div class="four columns">
+                            <label for="annotation_2">Annotation</label>
+                            <select class="u-full-width" id="annotation_2">
+                                <option value="sub_trajectory">Sub Trajectory</option>
+                                <option value="total_mRNA">Total mRNA</option>
+                                <option value="mutant_rt">Mutant Group</option>
+                            </select>
+                        </div>
+                        <div class="three columns">
+                            <label for="gene_2">Gene</label>
+                            <select class="u-full-width" id="gene_2">
+                                <option value="Option 1">X312</option>
+                            </select>
+                        </div>
+                        <div class="one column">
+                            <label for="legend-2">Show Legend</label>
+                            <input type="checkbox" id="legend-2" checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="plot u-max-full-width" id="scatter-plot-2"></div>
+            </div>
+        </div>
+    </div>
+    <script type='module' src='js/scatter_plots.js'></script>
+</body>
+
+</html>

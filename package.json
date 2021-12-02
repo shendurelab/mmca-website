@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "sqlite3": "https://github.com/mapbox/node-sqlite3/tarball/master"
+  },
+  "name": "mmca-website",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon ./app.js",
+    "start": "node ./app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cooperqmarshall/mmca-website.git"
+  },
+  "keywords": [],
+  "author": "Cooper Marshall <cooperqmarshall@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cooperqmarshall/mmca-website/issues"
+  },
+  "homepage": "https://github.com/cooperqmarshall/mmca-website#readme",
+  "description": ""
+}
