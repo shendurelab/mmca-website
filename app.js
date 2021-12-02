@@ -19,7 +19,7 @@ const db = new sqlite3.Database(path.join(__dirname, __db_path__), sqlite3.OPEN_
 });
 
 app.get('/', (_, res) => {
-  res.render(path.join(`${__dirname}/index.html`))
+  res.render(path.join(__dirname, '/index.html'))
 });
 
 app.get('/data', (req, res) => {
