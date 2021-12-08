@@ -1,13 +1,14 @@
 {
   "dependencies": {
     "express": "^4.17.1",
+    "nodemon": "^2.0.15",
     "sqlite3": "https://github.com/mapbox/node-sqlite3/tarball/master"
   },
   "name": "mmca-website",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon ./app.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js ./app.js",
     "start": "node ./app.js"
   },
   "repository": {

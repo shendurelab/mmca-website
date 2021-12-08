@@ -5,11 +5,13 @@ const sqlite3 = require('sqlite3').verbose();
 
 const hostname = '127.0.0.1';
 const port = 3000;
-const { __db_path__ } = require('./js/global.js')
+const { __db_path__ } = require('./public/js/global.js')
 
-app.use(express.static(__dirname));
+app.use('/mmca_v2/public', express.static(path.join(__dirname, '/public')));
 
-const db = new sqlite3.Database(path.join(__dirname, __db_path__), sqlite3.OPEN_READONLY, (err) => {
+console.log(__dirname);
+
+const db = new sqlite3.Database(__db_path__, sqlite3.OPEN_READONLY, (err) => {
   if (err) {
     console.log('Failed connection to database');
     console.error(err);
@@ -18,11 +20,11 @@ const db = new sqlite3.Database(path.join(__dirname, __db_path__), sqlite3.OPEN_
   }
 });
 
-app.get('/', (_, res) => {
-  res.render(path.join(__dirname, '/index.html'))
+app.get('/mmca_v2', (_, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'))
 });
 
-app.get('/data', (req, res) => {
+app.get('/mmca_v2/data', (req, res) => {
   try{
     process_data_request(req.query, res);
   } catch(err) {

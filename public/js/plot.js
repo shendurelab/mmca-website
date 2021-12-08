@@ -119,7 +119,7 @@ export default class Plot {
     }
 
     try {
-      let res = await fetch('/data?' + new URLSearchParams(params));
+      let res = await fetch('/mmca_v2/data?' + new URLSearchParams(params));
       return await res.json();
     } catch (err) {
       console.error(err);
