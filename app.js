@@ -33,7 +33,7 @@ app.get('/mmca_v2/data', (req, res) => {
   });
 
 app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(`Server running at http://${hostname}:${port}/mmca_v2`);
 });
 
 process_data_request = (params, res) => {

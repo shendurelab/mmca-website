@@ -6,6 +6,37 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+label {
+  text-align: center;
+}
+
 .plot {
     height: 60vh;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.autocomplete-list {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  top: 100%;
+  z-index: 99;
+  max-height: 50vh;
+  overflow: auto;
+  min-width: 80px;
+}
+
+.autocomplete-list div {
+  padding: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.autocomplete-list div:hover {
+  background-color: #e9e9e9;
 }

@@ -1,4 +1,5 @@
 import {colors} from './color.js';
+import {genes} from './genes.js';
 
 export default class Plot {
   plot;
@@ -20,6 +21,7 @@ export default class Plot {
     this.gene_selector = document.getElementById(gene_id);
     this.legend_toggle = document.getElementById(legend_id);
     this.colors = colors;
+    this.legendVisible = true;
     console.log('finished construction');
   }
 
@@ -38,7 +40,7 @@ export default class Plot {
     let layout = {
       height: 600,
       margin: {l:0 ,r:0, b:0, t:0},
-      legend: {yanchor:"top", y:0.9, xanchor:"right", x:0.99}
+      legend: {yanchor:"top", y:0.95, xanchor:"right", x:0.99}
     };
 
     Plotly.newPlot(this.plot_id, traces, layout, {responsive: true}).then(() => {
@@ -95,9 +97,11 @@ export default class Plot {
             size: 3,
             color: color,
             width: 0.1,
-            opacity: 0.4},
+            opacity: 0.4,
+            showscale: this.detail == "gene" || annotation == 'total_mRNA'
+          },
           type: 'scatter3d',
-          hovertemplate: "Trace"
+          hovertemplate: "Trace",
         };
       traces.push(trace);
     }
@@ -133,20 +137,48 @@ export default class Plot {
       this.detail = "annotation";
       this.update_plot();
     };
-    this.gene_selector.onchange = () => {
-      this.detail = "gene";
-      this.update_plot();
-    };
+
+    this.gene_selector.onclick = () => this.#generate_genes_field_autocomplete();
+
+    this.gene_selector.oninput = () => this.#generate_genes_field_autocomplete();
+  }
+
+  #generate_genes_field_autocomplete() {
+    this.#closeAllGeneLists();
+    let text = this.gene_selector.value;
+
+    let gene_list = document.createElement('div');
+    gene_list.setAttribute('class', 'autocomplete-list');
+    this.gene_selector.parentNode.appendChild(gene_list);
+
+    for (const gene of genes) {
+      if (gene.toLowerCase().includes(text.toLowerCase()) || !this.gene_selector.value) {
+        let matching_gene = document.createElement('div');
+        matching_gene.innerHTML = gene;
+        matching_gene.addEventListener('click', () => {
+          this.gene_selector.value = gene;
+          this.#closeAllGeneLists();
+          this.detail = "gene";
+          this.update_plot();
+        });
+        gene_list.appendChild(matching_gene);
+      }
+    }
   }
 
   #add_legend_toggle() {
-    this.legend_toggle.addEventListener('change', () => {
-      if (this.legend_toggle.checked) {
-        Plotly.relayout(this.plot_id, {'showlegend': true})
-      } else if (!this.legend_toggle.checked) {
-        Plotly.relayout(this.plot_id, {'showlegend': false})
-      }
+    this.legend_toggle.addEventListener('click', () => {
+        Plotly.relayout(this.plot_id, {'showlegend': !this.legendVisible})
+        this.legendVisible = !this.legendVisible;
+        $(this.legend_toggle).toggleClass("button-primary");
     });
+  }
+
+  #closeAllGeneLists() {
+    const gene_lists = document.getElementsByClassName('autocomplete-list');
+    for (const list of gene_lists) {
+      list.parentNode.removeChild(list);
+    }
   }
 
   #unpack(data, key) {return data.map(row => row[key])}

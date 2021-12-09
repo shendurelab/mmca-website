@@ -20,7 +20,7 @@
         <h1>Mouse Mutant Cell Atlas</h1>
         <div class="row">
             <div class="six columns offset-by-three">
-                <label for="Trajectory" style="text-align:center;">Trajectory</label>
+                <label for="Trajectory">Trajectory</label>
                 <select class="u-full-width" id="trajectory">
                     <option value="Haematopoiesis trajectory">Haematopoiesis trajectory</option>
                     <option value="Cardiomyocyte trajectory">Cardiomyocyte trajectory</option>
@@ -41,9 +41,9 @@
         <div class="row card-container">
             <div class="card six columns" id="plot_1">
                 <div class="container">
-                    <div class="row">
+                    <div class="row center">
                         <div class="four columns">
-                            <label for="background_1">Background Mutant</label>
+                            <label for="background_1">Background</label>
                             <select class="u-full-width" id="background_1">
                                 <option value="G4">G4</option>
                                 <option value="FVB">FVB</option>
@@ -59,15 +59,13 @@
                             </select>
                         </div>
                         <div class="three columns">
-                            <label for="gene_1">Gene</label>
-                            <select class="u-full-width" id="gene_1">
-                                <option value=""></option>
-                                <option value="Prim2">Prim2</option>
-                            </select>
+                            <div>
+                                <label for="gene_1">Gene</label>
+                                <input type="text" class="u-full-width" id="gene_1" autocomplete="off">
+                            </div>
                         </div>
-                        <div class="one column">
-                            <label for="legend-1">Show Legend</label>
-                            <input type="checkbox" id="legend-1" checked>
+                        <div class="two columns">
+                            <button class='button-primary' type='button' id='legend-1'>Legend</button>
                         </div>
                     </div>
                 </div>
@@ -75,9 +73,9 @@
             </div>
             <div class="card six columns" id="plot_2">
                 <div class="container">
-                    <div class="row">
+                    <div class="row center">
                         <div class="four columns">
-                            <label for="background_2">Background Mutant</label>
+                            <label for="background_2">Background</label>
                             <select class="u-full-width" id="background_2">
                                 <option value="G4">G4</option>
                                 <option value="FVB">FVB</option>
@@ -93,14 +91,13 @@
                             </select>
                         </div>
                         <div class="three columns">
-                            <label for="gene_2">Gene</label>
-                            <select class="u-full-width" id="gene_2">
-                                <option value="Option 1">X312</option>
-                            </select>
+                            <div>
+                                <label for="gene_1">Gene</label>
+                                <input type="text" class="u-full-width" id="gene_2" autocomplete="off">
+                            </div>
                         </div>
-                        <div class="one column">
-                            <label for="legend-2">Show Legend</label>
-                            <input type="checkbox" id="legend-2" checked>
+                        <div class="two columns">
+                            <button class='button-primary' type='button' id='legend-2'>Legend</button>
                         </div>
                     </div>
                 </div>

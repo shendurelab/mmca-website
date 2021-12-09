@@ -8,7 +8,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "dev": "./node_modules/nodemon/bin/nodemon.js ./app.js",
+    "dev": "nodemon ./app.js",
     "start": "node ./app.js"
   },
   "repository": {
