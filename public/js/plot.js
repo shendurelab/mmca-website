@@ -36,6 +36,7 @@ export default class Plot {
   async create_plot() {
     console.log('creating plot');
     let traces = await this.#generate_traces();
+    console.log('done generating traces')
 
     let layout = {
       height: 600,
@@ -43,12 +44,10 @@ export default class Plot {
       legend: {yanchor:"top", y:0.95, xanchor:"right", x:0.99}
     };
 
-    Plotly.newPlot(this.plot_id, traces, layout, {responsive: true}).then(() => {
-      console.log('finished creating plot');
-      this.plot = document.getElementById(this.plot_id);
-      this.#add_listeners();
-      this.#add_legend_toggle();
-    });
+    await Plotly.newPlot(this.plot_id, traces, layout, {responsive: true})
+    this.plot = document.getElementById(this.plot_id);
+    this.#add_listeners();
+    this.#add_legend_toggle();
   }
 
   async update_plot() {
@@ -61,13 +60,13 @@ export default class Plot {
 
   async #generate_traces() {
     let data = await this.#fetch_data();
+    console.log("data retrieved");
     let filtered_data = [];
     let traces = [];
     let annotation = this.annotation_selector.value;
     let unique = [];
     let color = [];
     
-    console.log(data);
 
     if (this.detail == "gene") {
       unique = ['expression'];
@@ -76,8 +75,6 @@ export default class Plot {
     } else {
       unique = [...new Set(this.#unpack(data, annotation))];
     }
-
-    console.log(data);
 
     for (let item in unique){
       if (annotation != 'total_mRNA' & this.detail != 'gene') {
@@ -106,7 +103,6 @@ export default class Plot {
       traces.push(trace);
     }
     this.traces = traces;
-    console.log(traces);
     return traces;
   }
 
@@ -123,8 +119,10 @@ export default class Plot {
     }
 
     try {
-      let res = await fetch('/mmca_v2/data?' + new URLSearchParams(params));
-      return await res.json();
+      console.log('fetching data');
+      const res = await fetch('/mmca_v2/data?' + new URLSearchParams(params));
+      return res.json();
+      
     } catch (err) {
       console.error(err);
     }
@@ -138,8 +136,6 @@ export default class Plot {
       this.update_plot();
     };
 
-    this.gene_selector.onclick = () => this.#generate_genes_field_autocomplete();
-
     this.gene_selector.oninput = () => this.#generate_genes_field_autocomplete();
   }
 
@@ -152,7 +148,7 @@ export default class Plot {
     this.gene_selector.parentNode.appendChild(gene_list);
 
     for (const gene of genes) {
-      if (gene.toLowerCase().includes(text.toLowerCase()) || !this.gene_selector.value) {
+      if (gene.toLowerCase().includes(text.toLowerCase()) && text) {
         let matching_gene = document.createElement('div');
         matching_gene.innerHTML = gene;
         matching_gene.addEventListener('click', () => {

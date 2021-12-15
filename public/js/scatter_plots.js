@@ -4,8 +4,8 @@ const plot1 = new Plot('scatter-plot-1','background_1','trajectory','annotation_
 const plot2 = new Plot('scatter-plot-2','background_2','trajectory','annotation_2', 'gene_2', 'legend-2');
 
 Promise.all([
-  Promise.resolve(plot1.create_plot()),
-  Promise.resolve(plot2.create_plot())
+  plot1.create_plot(),
+  plot2.create_plot()
 ]).then(() => {
   console.log('syncing cameras');
   Plot.sync_camera(plot1, plot2);
