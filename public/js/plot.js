@@ -13,7 +13,7 @@ export default class Plot {
   traces = [];
   colors = {};
 
-  constructor(plot_id, background_id, trajectory_id, annotation_id, gene_id, legend_id) {
+  constructor(plot_id, background_id, trajectory_id, annotation_id, gene_id, legend_id, loading_id) {
     this.plot_id = plot_id;
     this.background_selector = document.getElementById(background_id);
     this.trajectory_selector = document.getElementById(trajectory_id);
@@ -22,6 +22,7 @@ export default class Plot {
     this.legend_toggle = document.getElementById(legend_id);
     this.colors = colors;
     this.legendVisible = true;
+    this.loading_div = document.getElementById(loading_id);
     console.log('finished construction');
   }
 
@@ -41,10 +42,11 @@ export default class Plot {
     let layout = {
       height: 600,
       margin: {l:0 ,r:0, b:0, t:0},
-      legend: {yanchor:"top", y:0.95, xanchor:"right", x:0.99}
+      legend: {bgcolor: 'rgba(255,255,255,0.6)', yanchor:"top", y:0.95, xanchor:"right", x:0.99}
     };
 
     await Plotly.newPlot(this.plot_id, traces, layout, {responsive: true})
+    this.loading_div.classList.remove('lds-ellipsis');
     this.plot = document.getElementById(this.plot_id);
     this.#add_listeners();
     this.#add_legend_toggle();
@@ -53,12 +55,14 @@ export default class Plot {
   async update_plot() {
     console.log('updating');
     let old_traces_length = this.traces.length;
-    await this.#generate_traces();
     Plotly.deleteTraces(this.plot_id, [...Array(old_traces_length).keys()]);
+    await this.#generate_traces();
     Plotly.addTraces(this.plot_id, [...this.traces]);
+    this.loading_div.classList.remove('lds-ellipsis');
   }
 
   async #generate_traces() {
+    this.loading_div.classList.add('lds-ellipsis');
     let data = await this.#fetch_data();
     console.log("data retrieved");
     let filtered_data = [];
@@ -159,6 +163,9 @@ export default class Plot {
         });
         gene_list.appendChild(matching_gene);
       }
+    }
+    if (!gene_list.hasChildNodes()) {
+      this.#closeAllGeneLists();
     }
   }
 

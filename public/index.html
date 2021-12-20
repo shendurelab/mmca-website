@@ -16,8 +16,17 @@
 </head>
 
 <body>
+    <nav>
+        <ul>
+            <li>
+                <a class='nav-brand' href="#">Mouse Mutant Cell Atlas</a>
+            </li>
+            <li>
+                <a href="">GitHub</a>
+            </li>
+        </ul>
+    </nav>
     <div class="container">
-        <h1>Mouse Mutant Cell Atlas</h1>
         <div class="row">
             <div class="six columns offset-by-three">
                 <label for="Trajectory">Trajectory</label>
@@ -69,6 +78,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="lds-ellipsis" id='loading-1'><div></div><div></div><div></div><div></div></div>
                 <div class="plot u-max-full-width" id="scatter-plot-1"></div>
             </div>
             <div class="card six columns" id="plot_2">
@@ -101,10 +111,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="lds-ellipsis" id='loading-2'><div></div><div></div><div></div><div></div></div>
                 <div class="plot u-max-full-width" id="scatter-plot-2"></div>
             </div>
         </div>
     </div>
+    
     <script type='module' src='/mmca_v2/public/js/scatter_plots.js'></script>
 </body>
 
