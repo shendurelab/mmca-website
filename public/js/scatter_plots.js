@@ -1,7 +1,7 @@
 import Plot from './plot.js';
 
-const plot1 = new Plot('scatter-plot-1','background_1','trajectory','annotation_1', 'gene_1', 'legend-1', 'loading-1');
-const plot2 = new Plot('scatter-plot-2','background_2','trajectory','annotation_2', 'gene_2', 'legend-2', 'loading-2');
+const plot1 = new Plot('scatter-plot-1','background_1','mutant_1' ,'trajectory','annotation_1', 'gene_1', 'legend-1', 'loading-1', 'apply-1');
+const plot2 = new Plot('scatter-plot-2','background_2','mutant_2' ,'trajectory','annotation_2', 'gene_2', 'legend-2', 'loading-2', 'apply-2');
 
 Promise.all([
   plot1.create_plot(),

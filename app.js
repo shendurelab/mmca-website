@@ -43,12 +43,14 @@ process_data_request = (params, res) => {
     sql = `SELECT C.x, C.y, C.z, G.expression 
               FROM Cell C
               LEFT JOIN ${trajectory}_${params.background}_genes G using (cell)
-              WHERE G.gene = '${params.gene}'`
+              WHERE G.gene = '${params.gene}' and
+              C.mutant = '${params.mutant}'`
   } else if (params.annotation) {
     sql = `SELECT C.x, C.y, C.z, C.${params.annotation}
               FROM Cell C
               WHERE C.background = '${params.background}' and
-              C.main_trajectory = '${params.trajectory}'`
+              C.main_trajectory = '${params.trajectory}' and
+              C.mutant = '${params.mutant}'`
   } else {
     return res.status(500).json({'error':`Invalid query parameters ${JSON.stringify(params)}`});
   }

@@ -1,5 +1,7 @@
 import {colors} from './color.js';
 import {genes} from './genes.js';
+import { background_mutant } from './backgorund_mutant.js';
+
 
 export default class Plot {
   plot;
@@ -12,17 +14,19 @@ export default class Plot {
   detail = "annotation";
   traces = [];
   colors = {};
+  legendVisible = true;
 
-  constructor(plot_id, background_id, trajectory_id, annotation_id, gene_id, legend_id, loading_id) {
+  constructor(plot_id, background_id, mutant_id, trajectory_id, annotation_id, gene_id, legend_id, loading_id, apply_id) {
     this.plot_id = plot_id;
     this.background_selector = document.getElementById(background_id);
+    this.mutant_selector = document.getElementById(mutant_id);
     this.trajectory_selector = document.getElementById(trajectory_id);
     this.annotation_selector = document.getElementById(annotation_id);
     this.gene_selector = document.getElementById(gene_id);
     this.legend_toggle = document.getElementById(legend_id);
     this.colors = colors;
-    this.legendVisible = true;
     this.loading_div = document.getElementById(loading_id);
+    this.apply = document.getElementById(apply_id);
     console.log('finished construction');
   }
 
@@ -49,7 +53,7 @@ export default class Plot {
     this.loading_div.classList.remove('lds-ellipsis');
     this.plot = document.getElementById(this.plot_id);
     this.#add_listeners();
-    this.#add_legend_toggle();
+    this.#add_mutant_options();
   }
 
   async update_plot() {
@@ -64,7 +68,7 @@ export default class Plot {
   async #generate_traces() {
     this.loading_div.classList.add('lds-ellipsis');
     let data = await this.#fetch_data();
-    console.log("data retrieved");
+    console.log(data);
     let filtered_data = [];
     let traces = [];
     let annotation = this.annotation_selector.value;
@@ -113,7 +117,8 @@ export default class Plot {
   async #fetch_data() {
     let params = {
       "background": this.background_selector.value,
-      "trajectory": this.trajectory_selector.value
+      "trajectory": this.trajectory_selector.value,
+      "mutant": this.mutant_selector.value
     }
 
     if (this.detail == 'annotation') {
@@ -133,14 +138,33 @@ export default class Plot {
   }
 
   #add_listeners() {
-    this.background_selector.onchange = () => this.update_plot(this.detail);
+    this.background_selector.onchange = () => {
+      this.#add_mutant_options();
+      $(this.apply).addClass("button-primary");
+    };
 
     this.annotation_selector.onchange = () => {
       this.detail = "annotation";
-      this.update_plot();
+      $(this.apply).addClass("button-primary");
+      this.gene_selector.value = '';
+    };
+
+    this.mutant_selector.onchange = () => {
+      $(this.apply).addClass("button-primary");
     };
 
     this.gene_selector.oninput = () => this.#generate_genes_field_autocomplete();
+
+    this.legend_toggle.addEventListener('click', () => {
+        Plotly.relayout(this.plot_id, {'showlegend': !this.legendVisible})
+        this.legendVisible = !this.legendVisible;
+        $(this.legend_toggle).toggleClass("button-primary");
+    });
+
+    this.apply.addEventListener('click', () => {
+      this.update_plot();
+      $(this.apply).removeClass("button-primary");
+    });
   }
 
   #generate_genes_field_autocomplete() {
@@ -159,7 +183,8 @@ export default class Plot {
           this.gene_selector.value = gene;
           this.#closeAllGeneLists();
           this.detail = "gene";
-          this.update_plot();
+          $(this.apply).addClass("button-primary");
+          $(this.annotation_selector).val('none')
         });
         gene_list.appendChild(matching_gene);
       }
@@ -169,19 +194,21 @@ export default class Plot {
     }
   }
 
-  #add_legend_toggle() {
-    this.legend_toggle.addEventListener('click', () => {
-        Plotly.relayout(this.plot_id, {'showlegend': !this.legendVisible})
-        this.legendVisible = !this.legendVisible;
-        $(this.legend_toggle).toggleClass("button-primary");
-    });
-  }
-
   #closeAllGeneLists() {
     const gene_lists = document.getElementsByClassName('autocomplete-list');
     for (const list of gene_lists) {
       list.parentNode.removeChild(list);
     }
+  }
+
+  #add_mutant_options() {
+    this.mutant_selector.innerHTML = '';
+    background_mutant[this.background_selector.value].forEach(mutant => {
+      let opt = document.createElement('option');
+      opt.value = mutant;
+      opt.innerHTML = mutant;
+      this.mutant_selector.appendChild(opt);
+    });
   }
 
   #unpack(data, key) {return data.map(row => row[key])}

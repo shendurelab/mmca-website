@@ -3,7 +3,7 @@
 nav {
   background-color: #2C3E50;
   min-height: 60px;
-  padding-left: 10%;
+  padding-left: 5%;
 }
 
 nav > ul {
@@ -36,11 +36,23 @@ a:hover {
   font-weight: 600;
 }
 
+.filters {
+  padding-top: 10px;
+}
+
 .card {
   position: relative;
   border: 1px solid #E1E1E1;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.form-input{
+  display:flex;
+}
+
+.form-input > select, input{
+  flex: 2;
 }
 
 label {
