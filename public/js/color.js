@@ -12,7 +12,7 @@ const colors = {
   "Neural crest (PNS glia) trajectory": "#587c3a",
   "Olfactory sensory neuron trajectory": "#be6fa1",
   "Cardiomyocyte trajectory": "#a2773d",
-  "Cajal–Retzius cell trajectory": "#82bf71",
+  "Cajal-Retzius cell trajectory": "#82bf71",
   "Motor neuron trajectory": "#a55bdb",
   "Thalamus excitatory neuron trajectory": "#72be3e",
   "Di/telencephalon trajectory": "#8641b2",
