@@ -40,11 +40,12 @@ process_data_request = (params, res) => {
   let sql = '';
   if (params.gene) {
     let trajectory = params.trajectory.replace(/ /g, '_');
-    sql = `SELECT C.x, C.y, C.z, G.expression 
-              FROM Cell C
-              LEFT JOIN ${trajectory}_${params.background}_genes G using (cell)
-              WHERE G.gene = '${params.gene}' and
-              C.mutant = '${params.mutant}'`
+    sql = `SELECT C.x, C.y, C.z, G.expression
+            FROM Cell C,
+            ${trajectory}_${params.background}_genes G
+            WHERE C.cell = G.cell
+            and G.gene = '${params.gene}'
+            and C.mutant = '${params.mutant}'`
   } else if (params.annotation) {
     sql = `SELECT C.x, C.y, C.z, C.${params.annotation}
               FROM Cell C
