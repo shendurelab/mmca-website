@@ -39,13 +39,22 @@ app.listen(port, hostname, () => {
 process_data_request = (params, res) => {
   let sql = '';
   if (params.gene) {
-    let trajectory = params.trajectory.replace(/ /g, '_');
-    sql = `SELECT C.x, C.y, C.z, G.expression
-            FROM Cell C,
-            ${trajectory}_${params.background}_genes G
-            WHERE C.cell = G.cell
-            and G.gene = '${params.gene}'
-            and C.mutant = '${params.mutant}'`
+    sql = `select c.x, c.y, c.z, g.value 
+            from cell c
+            left join (
+                select key, value 
+                from (
+                    select value as v 
+                    from gene, json_each(json(data))
+                    where background = '${params.background}' 
+                        and main_trajectory = ${params.trajectory}
+                        and mutant = '${params.mutant}' 
+                        and gene = '${params.gene}'
+                ) j, json_each(j.v)
+            ) g on (g.key = c.cell)
+            and background = '${params.background}' 
+            and main_trajectory = ${trajectory}
+            and mutant = '${params.mutant}'`
   } else if (params.annotation) {
     sql = `SELECT C.x, C.y, C.z, C.${params.annotation}
               FROM Cell C
