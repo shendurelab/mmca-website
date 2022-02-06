@@ -47,13 +47,13 @@ process_data_request = (params, res) => {
                     select value as v 
                     from gene, json_each(json(data))
                     where background = '${params.background}' 
-                        and main_trajectory = ${params.trajectory}
+                        and main_trajectory = '${params.trajectory}'
                         and mutant = '${params.mutant}' 
                         and gene = '${params.gene}'
                 ) j, json_each(j.v)
             ) g on (g.key = c.cell)
             and background = '${params.background}' 
-            and main_trajectory = ${trajectory}
+            and main_trajectory = '${params.trajectory}'
             and mutant = '${params.mutant}'`
   } else if (params.annotation) {
     sql = `SELECT C.x, C.y, C.z, C.${params.annotation}
