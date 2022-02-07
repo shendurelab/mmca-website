@@ -39,7 +39,7 @@ app.listen(port, hostname, () => {
 process_data_request = (params, res) => {
   let sql = '';
   if (params.gene) {
-    sql = `select c.x, c.y, c.z, case g.value when null then 0 else g.value
+    sql = `select c.x, c.y, c.z, case g.value when null then 0 else g.value end expression
             from cell c
             left join (
                 select key, value 
