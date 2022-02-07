@@ -39,6 +39,7 @@ export default class Plot {
   }
 
   async create_plot() {
+    this.#add_mutant_options();
     console.log('creating plot');
     let traces = await this.#generate_traces();
     console.log('done generating traces')
@@ -53,7 +54,6 @@ export default class Plot {
     this.loading_div.classList.remove('lds-ellipsis');
     this.plot = document.getElementById(this.plot_id);
     this.#add_listeners();
-    this.#add_mutant_options();
   }
 
   async update_plot() {
@@ -209,6 +209,7 @@ export default class Plot {
       opt.innerHTML = mutant;
       this.mutant_selector.appendChild(opt);
     });
+    this.mutant_selector.value = background_mutant[this.background_selector.value][0];
   }
 
   #unpack(data, key) {return data.map(row => row[key])}
