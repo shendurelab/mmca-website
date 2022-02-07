@@ -51,8 +51,8 @@ process_data_request = (params, res) => {
                         and mutant = '${params.mutant}' 
                         and gene = '${params.gene}'
                 ) j, json_each(j.v)
-            ) g on (g.key = c.cell)
-            and background = '${params.background}' 
+            ) g on g.key = c.cell
+            where background = '${params.background}' 
             and main_trajectory = '${params.trajectory}'
             and mutant = '${params.mutant}'`
   } else if (params.annotation) {
