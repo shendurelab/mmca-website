@@ -25,12 +25,12 @@ app.get('/mmca_v2', (_, res) => {
 });
 
 app.get('/mmca_v2/data', (req, res) => {
-  try{
+  try {
     process_data_request(req.query, res);
-  } catch(err) {
+  } catch (err) {
     console.error(err);
   }
-  });
+});
 
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/mmca_v2`);
@@ -39,7 +39,8 @@ app.listen(port, hostname, () => {
 process_data_request = (params, res) => {
   let sql = '';
   if (params.gene) {
-    sql = `select c.x, c.y, c.z, case g.value when null then 0 else g.value end expression
+    sql = `select x, y, z, ifnull(expression, 0) as expression
+          from (select c.x, c.y, c.z, g.value as expression
             from cell c
             left join (
                 select key, value 
@@ -54,7 +55,8 @@ process_data_request = (params, res) => {
             ) g on g.key = c.cell
             where background = '${params.background}' 
             and main_trajectory = '${params.trajectory}'
-            and mutant = '${params.mutant}'`
+            and mutant = '${params.mutant}'
+          ) j`
   } else if (params.annotation) {
     sql = `SELECT C.x, C.y, C.z, C.${params.annotation}
               FROM Cell C
@@ -62,13 +64,13 @@ process_data_request = (params, res) => {
               C.main_trajectory = '${params.trajectory}' and
               C.mutant = '${params.mutant}'`
   } else {
-    return res.status(500).json({'error':`Invalid query parameters ${JSON.stringify(params)}`});
+    return res.status(500).json({ 'error': `Invalid query parameters ${JSON.stringify(params)}` });
   }
-  
+
 
   db.all(sql, (err, rows) => {
     if (err) {
-      return res.status(500).json({'error':`Database encountered an error: ${err}`});
+      return res.status(500).json({ 'error': `Database encountered an error: ${err}` });
     }
     return res.json(rows);
   });

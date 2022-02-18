@@ -53,94 +53,94 @@
         </div>
         <div class="row card-container">
             <div class="card six columns" id="plot_1">
-                <h6 id="title_1">Plot of</h1>
-                    <div class="container filters">
-                        <div class="row center">
-                            <div class="six columns form-input center">
-                                <label for="background_1">Background: </label>
-                                <select id="background_1">
-                                    <option value="G4">G4</option>
-                                    <option value="FVB">FVB</option>
-                                    <option value="C57BL6">C57BL6</option>
-                                </select>
-                            </div>
-                            <div class="six columns form-input center">
-                                <label for="mutant_1">Mutant: </label>
-                                <select id="mutant_1"></select>
-                            </div>
+                <div class="container filters">
+                    <div class="row center">
+                        <div class="six columns form-input center">
+                            <label for="background_1">Background: </label>
+                            <select id="background_1">
+                                <option value="G4">G4</option>
+                                <option value="FVB">FVB</option>
+                                <option value="C57BL6">C57BL6</option>
+                            </select>
                         </div>
-                        <div class="row center">
-                            <div class="eight columns form-input center">
-                                <label for="annotation_1">Color: </label>
-                                <select id="annotation_1">
-                                    <option value="sub_trajectory">Sub Trajectory</option>
-                                    <option value="total_mRNA">Total mRNA</option>
-                                    <option value="mutant_rt">Mutant Group</option>
-                                    <option value="none"></option>
-                                </select>
-                                <label for="gene_1" style="margin-left: 5px;">or</label>
-                                <input style="width: 100%;" type="text" id="gene_1" placeholder='Gene'>
-                            </div>
-                            <div class="two columns center">
-                                <button class='' type='button' id='apply-1'>Apply</button>
-                            </div>
-                            <div class="two columns center">
-                                <button class='button-primary' type='button' id='legend-1'>Legend</button>
-                            </div>
+                        <div class="six columns form-input center">
+                            <label for="mutant_1">Mutant: </label>
+                            <select id="mutant_1"></select>
                         </div>
                     </div>
-                    <div class="lds-ellipsis" id='loading-1'>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                    <div class="row center">
+                        <div class="eight columns form-input center">
+                            <label for="annotation_1">Color: </label>
+                            <select id="annotation_1">
+                                <option value="sub_trajectory">Sub Trajectory</option>
+                                <option value="total_mRNA">Total mRNA</option>
+                                <option value="mutant_rt">Mutant Group</option>
+                                <option value="none"></option>
+                            </select>
+                            <label for="gene_1" style="margin-left: 5px;">or</label>
+                            <input style="width: 100%;" type="text" id="gene_1" placeholder='Gene'>
+                        </div>
+                        <div class="two columns center">
+                            <button class='' type='button' id='apply-1'>Apply</button>
+                        </div>
+                        <div class="two columns center">
+                            <button class='button-primary' type='button' id='legend-1'>Legend</button>
+                        </div>
                     </div>
-                    <div class="plot u-max-full-width" id="scatter-plot-1"></div>
+                </div>
+                <div class="lds-ellipsis" id='loading-1'>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="plot u-max-full-width" id="scatter-plot-1"></div>
+                <h6 id="title_1"></h6>
             </div>
             <div class="card six columns" id="plot_2">
-                <h6 id="title_2">Plot of</h1>
-                    <div class="container filters">
-                        <div class="row center">
-                            <div class="six columns form-input center">
-                                <label for="background_2">Background: </label>
-                                <select id="background_2">
-                                    <option value="G4">G4</option>
-                                    <option value="FVB">FVB</option>
-                                    <option value="C57BL6">C57BL6</option>
-                                </select>
-                            </div>
-                            <div class="six columns form-input center">
-                                <label for="mutant_2">Mutant: </label>
-                                <select id="mutant_2"></select>
-                            </div>
+                <div class="container filters">
+                    <div class="row center">
+                        <div class="six columns form-input center">
+                            <label for="background_2">Background: </label>
+                            <select id="background_2">
+                                <option value="G4">G4</option>
+                                <option value="FVB">FVB</option>
+                                <option value="C57BL6">C57BL6</option>
+                            </select>
                         </div>
-                        <div class="row center">
-                            <div class="eight columns form-input center">
-                                <label for="annotation_2">Color: </label>
-                                <select id="annotation_2">
-                                    <option value="sub_trajectory">Sub Trajectory</option>
-                                    <option value="total_mRNA">Total mRNA</option>
-                                    <option value="mutant_rt">Mutant Group</option>
-                                    <option value="none"></option>
-                                </select>
-                                <label for="gene_2" style="margin-left: 5px;">or</label>
-                                <input style="width: 100%;" type="text" id="gene_2" placeholder='Gene'>
-                            </div>
-                            <div class="two columns center">
-                                <button class='' type='button' id='apply-2'>Apply</button>
-                            </div>
-                            <div class="two columns center">
-                                <button class='button-primary' type='button' id='legend-2'>Legend</button>
-                            </div>
+                        <div class="six columns form-input center">
+                            <label for="mutant_2">Mutant: </label>
+                            <select id="mutant_2"></select>
                         </div>
                     </div>
-                    <div class="lds-ellipsis" id='loading-2'>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                    <div class="row center">
+                        <div class="eight columns form-input center">
+                            <label for="annotation_2">Color: </label>
+                            <select id="annotation_2">
+                                <option value="sub_trajectory">Sub Trajectory</option>
+                                <option value="total_mRNA">Total mRNA</option>
+                                <option value="mutant_rt">Mutant Group</option>
+                                <option value="none"></option>
+                            </select>
+                            <label for="gene_2" style="margin-left: 5px;">or</label>
+                            <input style="width: 100%;" type="text" id="gene_2" placeholder='Gene'>
+                        </div>
+                        <div class="two columns center">
+                            <button class='' type='button' id='apply-2'>Apply</button>
+                        </div>
+                        <div class="two columns center">
+                            <button class='button-primary' type='button' id='legend-2'>Legend</button>
+                        </div>
                     </div>
-                    <div class="plot u-max-full-width" id="scatter-plot-2"></div>
+                </div>
+                <div class="lds-ellipsis" id='loading-2'>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="plot u-max-full-width" id="scatter-plot-2"></div>
+                <h6 id="title_2"></h6>
             </div>
         </div>
     </div>
