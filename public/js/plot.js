@@ -1,5 +1,5 @@
-import {colors} from './color.js';
-import {genes} from './genes.js';
+import { colors } from './color.js';
+import { genes } from './genes.js';
 import { background_mutant } from './backgorund_mutant.js';
 
 
@@ -16,7 +16,7 @@ export default class Plot {
   colors = {};
   legendVisible = true;
 
-  constructor(plot_id, background_id, mutant_id, trajectory_id, annotation_id, gene_id, legend_id, loading_id, apply_id) {
+  constructor(plot_id, background_id, mutant_id, trajectory_id, annotation_id, gene_id, legend_id, loading_id, apply_id, title_id) {
     this.plot_id = plot_id;
     this.background_selector = document.getElementById(background_id);
     this.mutant_selector = document.getElementById(mutant_id);
@@ -27,6 +27,7 @@ export default class Plot {
     this.colors = colors;
     this.loading_div = document.getElementById(loading_id);
     this.apply = document.getElementById(apply_id);
+    this.title = document.getElementById(title_id);
     console.log('finished construction');
   }
 
@@ -40,17 +41,18 @@ export default class Plot {
 
   async create_plot() {
     this.#add_mutant_options();
+    this.#update_title();
     console.log('creating plot');
     let traces = await this.#generate_traces();
     console.log('done generating traces')
 
     let layout = {
       height: 600,
-      margin: {l:0 ,r:0, b:0, t:0},
-      legend: {bgcolor: 'rgba(255,255,255,0.6)', yanchor:"top", y:0.95, xanchor:"right", x:0.99}
+      margin: { l: 0, r: 0, b: 0, t: 0 },
+      legend: { bgcolor: 'rgba(255,255,255,0.6)', yanchor: "top", y: 0.95, xanchor: "right", x: 0.99 }
     };
 
-    await Plotly.newPlot(this.plot_id, traces, layout, {responsive: true})
+    await Plotly.newPlot(this.plot_id, traces, layout, { responsive: true })
     this.loading_div.classList.remove('lds-ellipsis');
     this.plot = document.getElementById(this.plot_id);
     this.#add_listeners();
@@ -61,6 +63,7 @@ export default class Plot {
     let old_traces_length = this.traces.length;
     Plotly.deleteTraces(this.plot_id, [...Array(old_traces_length).keys()]);
     await this.#generate_traces();
+    this.#update_title();
     Plotly.addTraces(this.plot_id, [...this.traces]);
     this.loading_div.classList.remove('lds-ellipsis');
   }
@@ -74,7 +77,7 @@ export default class Plot {
     let annotation = this.annotation_selector.value;
     let unique = [];
     let color = [];
-    
+
 
     if (this.detail == "gene") {
       unique = ['expression'];
@@ -84,7 +87,7 @@ export default class Plot {
       unique = [...new Set(this.#unpack(data, annotation))];
     }
 
-    for (let item in unique){
+    for (let item in unique) {
       if (annotation != 'total_mRNA' & this.detail != 'gene') {
         filtered_data = data.filter((el) => el[annotation] == unique[item]);
         color = this.colors[unique[item]];
@@ -95,19 +98,18 @@ export default class Plot {
       }
 
       let trace = {
-          name: unique[item],
-          x: this.#unpack(filtered_data, 'x'), y: this.#unpack(filtered_data, 'y'), z: this.#unpack(filtered_data, 'z'),
-          mode: 'markers',
-          marker: {
-            size: 3,
-            color: color,
-            width: 0.1,
-            opacity: 0.4,
-            showscale: this.detail == "gene" || annotation == 'total_mRNA'
-          },
-          type: 'scatter3d',
-          hovertemplate: "Trace",
-        };
+        name: unique[item],
+        x: this.#unpack(filtered_data, 'x'), y: this.#unpack(filtered_data, 'y'), z: this.#unpack(filtered_data, 'z'),
+        mode: 'markers',
+        marker: {
+          size: 3,
+          color: color,
+          width: 0.1,
+          showscale: this.detail == "gene" || annotation == 'total_mRNA'
+        },
+        type: 'scatter3d',
+        hovertemplate: "Trace",
+      };
       traces.push(trace);
     }
     this.traces = traces;
@@ -131,7 +133,7 @@ export default class Plot {
       console.log('fetching data');
       const res = await fetch('/mmca_v2/data?' + new URLSearchParams(params));
       return res.json();
-      
+
     } catch (err) {
       console.error(err);
     }
@@ -156,9 +158,9 @@ export default class Plot {
     this.gene_selector.oninput = () => this.#generate_genes_field_autocomplete();
 
     this.legend_toggle.addEventListener('click', () => {
-        Plotly.relayout(this.plot_id, {'showlegend': !this.legendVisible})
-        this.legendVisible = !this.legendVisible;
-        $(this.legend_toggle).toggleClass("button-primary");
+      Plotly.relayout(this.plot_id, { 'showlegend': !this.legendVisible })
+      this.legendVisible = !this.legendVisible;
+      $(this.legend_toggle).toggleClass("button-primary");
     });
 
     this.apply.addEventListener('click', () => {
@@ -201,6 +203,19 @@ export default class Plot {
     }
   }
 
+  #update_title() {
+    let colored_by
+    if (this.detail == 'gene') {
+      colored_by = `${this.gene_selector.value} gene expression`
+    } else {
+      colored_by = `${this.annotation_selector.value}`
+    }
+    this.title.innerHTML = `Mouse cells in the ${this.trajectory_selector.value}
+                            with ${this.background_selector.value} background
+                            and ${this.mutant_selector.value} mutation
+                            colored by ${colored_by}`
+  }
+
   #add_mutant_options() {
     this.mutant_selector.innerHTML = '';
     background_mutant[this.background_selector.value].forEach(mutant => {
@@ -212,15 +227,15 @@ export default class Plot {
     this.mutant_selector.value = background_mutant[this.background_selector.value][0];
   }
 
-  #unpack(data, key) {return data.map(row => row[key])}
+  #unpack(data, key) { return data.map(row => row[key]) }
 
   static sync_camera(Plot_1, Plot_2) {
     let cameraChange = false;
 
     Plot_1.plot.on('plotly_relayout', () => {
-      if(!cameraChange) {
-        Plotly.relayout(Plot_2.plot, {'scene.camera': Plot_1.plot.layout.scene.camera})
-          .then(() => {cameraChange = false});
+      if (!cameraChange) {
+        Plotly.relayout(Plot_2.plot, { 'scene.camera': Plot_1.plot.layout.scene.camera })
+          .then(() => { cameraChange = false });
       }
       cameraChange = true;
     });

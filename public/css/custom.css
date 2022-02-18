@@ -6,19 +6,19 @@ nav {
   padding-left: 5%;
 }
 
-nav > ul {
+nav>ul {
   list-style-type: none;
   overflow: hidden;
   margin: 0;
   padding: 0;
 }
 
-nav > ul > li {
+nav>ul>li {
   float: left;
   margin: 0;
 }
 
-nav > ul > li > a {
+nav>ul>li>a {
   text-decoration: none;
   display: block;
   color: #fff;
@@ -45,14 +45,18 @@ a:hover {
   border: 1px solid #E1E1E1;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* min-width: 600px; */
 }
 
-.form-input{
-  display:flex;
+.form-input {
+  display: flex;
 }
 
-.form-input > select, input{
+.form-input>select,
+input {
   flex: 2;
+  width: 100%;
+  padding: 0px;
 }
 
 label {
@@ -60,7 +64,17 @@ label {
 }
 
 .plot {
-    height: 60vh;
+  height: 60vh;
+}
+
+@media (min-width: 800px) {
+  .card-container > .columns {
+    margin-left: 2%;
+    width: 49%;
+  }
+  .card-container > .columns:first-child {
+    margin-left: 0;
+  }
 }
 
 .center {
@@ -100,8 +114,9 @@ label {
   width: 80px;
   height: 80px;
   margin-left: auto;
-  margin-right: auto; 
+  margin-right: auto;
 }
+
 .lds-ellipsis div {
   position: absolute;
   top: 33px;
@@ -111,42 +126,52 @@ label {
   background: #2C3E50;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
+
 .lds-ellipsis div:nth-child(1) {
   left: 8px;
   animation: lds-ellipsis1 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(2) {
   left: 8px;
   animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(3) {
   left: 32px;
   animation: lds-ellipsis2 0.6s infinite;
 }
+
 .lds-ellipsis div:nth-child(4) {
   left: 56px;
   animation: lds-ellipsis3 0.6s infinite;
 }
+
 @keyframes lds-ellipsis1 {
   0% {
     transform: scale(0);
   }
+
   100% {
     transform: scale(1);
   }
 }
+
 @keyframes lds-ellipsis3 {
   0% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(0);
   }
 }
+
 @keyframes lds-ellipsis2 {
   0% {
     transform: translate(0, 0);
   }
+
   100% {
     transform: translate(24px, 0);
   }
