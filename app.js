@@ -40,7 +40,7 @@ process_data_request = (params, res) => {
   let sql = '';
   if (params.gene) {
     sql = `select x, y, z, ifnull(expression, 0) as expression
-          from (select c.x, c.y, c.z, g.value as expression
+          from (select c.x, c.y, c.z, g.value * c.factor as expression
             from cell c
             left join (
                 select key, value 
