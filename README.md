@@ -162,3 +162,10 @@ If there are any errors, something went wrong with the sqlite compilation.
 - Download Page
 	- sections?
 	- look at the previous cell atlas
+- Trajecotyr order
+	- order by size
+- Increase size
+- Gene expr normalization
+- log normalized expression
+- tool tips
+	- Not imediate hover
