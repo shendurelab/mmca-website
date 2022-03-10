@@ -3,7 +3,7 @@ const background_mutant = {
 
     'G4': ['Cdkl5 KO', 'Ror2 KO', 'Sox9 Regulatroy KO', 'TAD boundary KI', 'WT', 'Zfp42 KO'],
 
-    'FVB': ['Dmrt1 TAD boudary KO', 'Neurog2 TAD boundary KO', 'Sim1 TAD boundary KOg', 'Smad3 TAD boundary KO', 'Smad7 TAD boundary KO', 'Tbx3 TAD boundary KO', 'Tbx5 TAD boundary KO', 'Twist1 TAD boudary KO', 'WT', 'ZRS limb enhancer KO']
+    'FVB': ['Dmrt1 TAD boudary KO', 'Neurog2 TAD boundary KO', 'Sim1 TAD boundary KO', 'Smad3 TAD boundary KO', 'Smad7 TAD boundary KO', 'Tbx3 TAD boundary KO', 'Tbx5 TAD boundary KO', 'Twist1 TAD boudary KO', 'WT', 'ZRS limb enhancer KO']
 };
 export { background_mutant };
 
@@ -19,7 +19,7 @@ const all_mutant = [
     'Ror2 KO',
     'SScn11A GoF',
     'Scn10a_Scn11a KO',
-    'Sim1 TAD boundary KOg',
+    'Sim1 TAD boundary KO',
     'Smad3 TAD boundary KO',
     'Smad7 TAD boundary KO',
     'Sox9 Regulatroy KO',

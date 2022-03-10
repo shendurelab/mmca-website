@@ -1,6 +1,7 @@
 import { colors } from './color.js';
 import { genes } from './genes.js';
 import { background_mutant } from './backgorund_mutant.js';
+import { mutant_map } from './mutant_map.js';
 
 
 export default class Plot {
@@ -232,7 +233,7 @@ export default class Plot {
     background_mutant[this.background_selector.value].forEach(mutant => {
       let opt = document.createElement('option');
       opt.value = mutant;
-      opt.innerHTML = mutant;
+      opt.innerHTML = mutant_map[mutant] ? mutant_map[mutant] : mutant
       this.mutant_selector.appendChild(opt);
     });
     this.mutant_selector.value = background_mutant[this.background_selector.value][0];
