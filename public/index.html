@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mouse Mutant Cell Atlas Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mouse mutant data visualization">
     <meta name="author" content="Cooper Marshall">
     <link rel="shortcut icon" type="image/jpg" href="/mmca_v2/public/images/favicon.png" />
@@ -38,19 +39,19 @@
             <div class="six columns offset-by-three form-input center">
                 <label for="trajectory">Trajectory:</label>
                 <select class="u-full-width" id="trajectory">
+                    <option value="Neural tube and notochord trajectory">Neural tube and notochord trajectory</option>
+                    <option value="Mesenchymal trajectory">Mesenchymal trajectory</option>
+                    <option value="Epithelial trajectory">Epithelial trajectory</option>
                     <option value="Haematopoiesis trajectory">Haematopoiesis trajectory</option>
+                    <option value="Myoblast trajectory">Myoblast trajectory</option>
                     <option value="Cardiomyocyte trajectory">Cardiomyocyte trajectory</option>
                     <option value="Endothelial trajectory">Endothelial trajectory</option>
-                    <option value="Mesenchymal trajectory">Mesenchymal trajectory</option>
-                    <option value="Neural tube and notochord trajectory">Neural tube and notochord trajectory</option>
-                    <option value="Epithelial trajectory">Epithelial trajectory</option>
+                    <option value="Myotube trajectory">Myotube trajectory</option>
                     <option value="Neural crest (PNS neuron) trajectory">Neural crest (PNS neuron) trajectory</option>
                     <option value="Hepatocyte trajectory">Hepatocyte trajectory</option>
-                    <option value="Melanocyte trajectory">Melanocyte trajectory</option>
                     <option value="Neural crest (PNS glia) trajectory">Neural crest (PNS glia) trajectory</option>
-                    <option value="Myoblast trajectory">Myoblast trajectory</option>
-                    <option value="Myotube trajectory">Myotube trajectory</option>
                     <option value="Olfactory sensory neuron trajectory">Olfactory sensory neuron trajectory</option>
+                    <option value="Melanocyte trajectory">Melanocyte trajectory</option>
                 </select>
             </div>
         </div>
@@ -72,17 +73,21 @@
                         </div>
                     </div>
                     <div class="row center">
-                        <div class="eight columns form-input center">
+                        <div class="five columns form-input center">
                             <label for="annotation_1">Color: </label>
                             <select id="annotation_1">
                                 <option value="sub_trajectory">Sub Trajectory</option>
                                 <option value="total_mRNA">Total mRNA</option>
                                 <option value="mutant_rt">Mutant Group</option>
-                                <option value="none"></option>
+                                <option value="gene_expression_count">Gene Expression Count</option>
+                                <option value="gene_expression_log">Gene Expression Log Normalized</option>
                             </select>
-                            <label for="gene_1" style="margin-left: 5px;">or</label>
-                            <input style="width: 100%;" type="text" id="gene_1" placeholder='Gene'>
                         </div>
+                        <div id="gene_wrapper_1" class="three columns hide form-imput center">
+                            <label for="gene_1">Gene:</label>
+                            <input type="text" id="gene_1" placeholder='Gene'>
+                        </div>
+
                         <div class="two columns center">
                             <button class='' type='button' id='apply-1'>Apply</button>
                         </div>
@@ -117,15 +122,18 @@
                         </div>
                     </div>
                     <div class="row center">
-                        <div class="eight columns form-input center">
+                        <div class="five columns form-input center">
                             <label for="annotation_2">Color: </label>
                             <select id="annotation_2">
                                 <option value="sub_trajectory">Sub Trajectory</option>
                                 <option value="total_mRNA">Total mRNA</option>
                                 <option value="mutant_rt">Mutant Group</option>
-                                <option value="none"></option>
+                                <option value="gene_expression_count">Gene Expression Count</option>
+                                <option value="gene_expression_log">Gene Expression Log Normalized</option>
                             </select>
-                            <label for="gene_2" style="margin-left: 5px;">or</label>
+                        </div>
+                        <div id="gene_wrapper_2" class="three columns hide form-input center">
+                            <label for="gene_2">Gene:</label>
                             <input style="width: 100%;" type="text" id="gene_2" placeholder='Gene'>
                         </div>
                         <div class="two columns center">

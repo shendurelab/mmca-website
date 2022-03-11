@@ -17,13 +17,14 @@ export default class Plot {
   colors = {};
   legendVisible = true;
 
-  constructor(plot_id, background_id, mutant_id, trajectory_id, annotation_id, gene_id, legend_id, loading_id, apply_id, title_id) {
+  constructor(plot_id, background_id, mutant_id, trajectory_id, annotation_id, gene_id, gene_w_id, legend_id, loading_id, apply_id, title_id) {
     this.plot_id = plot_id;
     this.background_selector = document.getElementById(background_id);
     this.mutant_selector = document.getElementById(mutant_id);
     this.trajectory_selector = document.getElementById(trajectory_id);
     this.annotation_selector = document.getElementById(annotation_id);
     this.gene_selector = document.getElementById(gene_id);
+    this.gene_wrapper = document.getElementById(gene_w_id);
     this.legend_toggle = document.getElementById(legend_id);
     this.colors = colors;
     this.loading_div = document.getElementById(loading_id);
@@ -158,9 +159,16 @@ export default class Plot {
     };
 
     this.annotation_selector.onchange = () => {
-      this.detail = "annotation";
-      $(this.apply).addClass("button-primary");
-      this.gene_selector.value = '';
+      if (this.annotation_selector.value.includes('gene_expression')) {
+        $(this.gene_wrapper).removeClass('hide')
+        $(this.gene_wrapper).addClass('slide-right')
+        this.detail = "gene"
+      } else {
+        this.detail = "annotation";
+        $(this.gene_wrapper).addClass('hide')
+        $(this.gene_wrapper).removeClass('slide-right')
+        $(this.apply).addClass("button-primary");
+      }
     };
 
     this.mutant_selector.onchange = () => {
@@ -187,7 +195,7 @@ export default class Plot {
 
     let gene_list = document.createElement('div');
     gene_list.setAttribute('class', 'autocomplete-list');
-    this.gene_selector.parentNode.appendChild(gene_list);
+    this.gene_selector.parentNode.parentNode.appendChild(gene_list);
 
     for (const gene of genes) {
       if (gene.toLowerCase().includes(text.toLowerCase()) && text) {
@@ -198,7 +206,6 @@ export default class Plot {
           this.#closeAllGeneLists();
           this.detail = "gene";
           $(this.apply).addClass("button-primary");
-          $(this.annotation_selector).val('none')
         });
         gene_list.appendChild(matching_gene);
       }
