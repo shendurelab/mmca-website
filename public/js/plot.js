@@ -134,7 +134,7 @@ export default class Plot {
       "background": this.background_selector.value,
       "trajectory": this.trajectory_selector.value,
       "mutant": this.mutant_selector.value,
-      "annotation": this.annotation_selector.value
+      "annotation": this.annotation_selector.value,
       "gene": this.detail == 'gene' ? this.gene_selector.value : ''
     }
 
