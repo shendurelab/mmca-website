@@ -159,6 +159,7 @@ export default class Plot {
         $(this.gene_wrapper).removeClass('hide')
         $(this.gene_wrapper).addClass('slide-right')
         this.detail = "gene"
+        $(this.apply).addClass("button-primary");
       } else {
         this.detail = "annotation";
         $(this.gene_wrapper).addClass('hide')
