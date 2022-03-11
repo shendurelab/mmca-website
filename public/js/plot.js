@@ -133,13 +133,9 @@ export default class Plot {
     let params = {
       "background": this.background_selector.value,
       "trajectory": this.trajectory_selector.value,
-      "mutant": this.mutant_selector.value
-    }
-
-    if (this.detail == 'annotation') {
-      params[this.detail] = this.annotation_selector.value
-    } else if (this.detail == 'gene') {
-      params[this.detail] = this.gene_selector.value
+      "mutant": this.mutant_selector.value,
+      "annotation": this.annotation_selector.value
+      "gene": this.detail == 'gene' ? this.gene_selector.value : ''
     }
 
     try {
