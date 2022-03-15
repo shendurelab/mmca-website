@@ -37,7 +37,9 @@
     <div class="container">
         <div class="row filters">
             <div class="six columns offset-by-three form-input center">
-                <label for="trajectory">Trajectory:</label>
+                <label class="tooltip" for="trajectory">Trajectory:
+                    <div class="tooltip-text">the cell's developmental direction</div>
+                </label>
                 <select class="u-full-width" id="trajectory">
                     <option value="Neural tube and notochord trajectory">Neural tube and notochord trajectory</option>
                     <option value="Mesenchymal trajectory">Mesenchymal trajectory</option>
@@ -60,7 +62,9 @@
                 <div class="container filters">
                     <div class="row center">
                         <div class="six columns form-input center">
-                            <label for="background_1">Background: </label>
+                            <label class="tooltip" for="background_1">Background:
+                                <div class="tooltip-text">the strain of mouse</div>
+                            </label>
                             <select id="background_1">
                                 <option value="G4">G4</option>
                                 <option value="FVB">FVB</option>
@@ -68,7 +72,9 @@
                             </select>
                         </div>
                         <div class="six columns form-input center">
-                            <label for="mutant_1">Mutant: </label>
+                            <label class="tooltip" for="mutant_1">Mutant:
+                                <div class="tooltip-text">the cell's genomic mutation</div>
+                            </label>
                             <select id="mutant_1"></select>
                         </div>
                     </div>
