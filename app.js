@@ -40,7 +40,7 @@ process_data_request = (params, res) => {
   let sql = '';
   if (params.gene) {
     sql = `select x, y, z, ifnull(expression, 0) as expression
-          from (select c.x, c.y, c.z, ${params.annotation.includes('count') ? 'g.value' : 'LOG2(g.value/c.factor + 1)'} as expression
+          from (select c.x, c.y, c.z, ${params.annotation.includes('count') ? 'g.value' : 'LOG2(g.value / c.factor + 1)'} as expression
             from cell c
             left join (
                 select key, value 

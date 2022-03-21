@@ -101,9 +101,9 @@ OR
 
 ## Install
 
-You need to have a build of sqlite with the [JSON1 extension](https://www.sqlite.org/json1.html) enabled.
+You need to have a build of sqlite with the [JSON1 extension](https://www.sqlite.org/json1.html) and [Math Functions](https://www.sqlite.org/lang_mathfunc.html) enabled.
 
-First check if your sqlite3 has JSON1 enabled: [Test JSON1](#test-json1) If it is not enabled, you need to compile sqlite3 and use the built-in compile-time option to enable this extension.
+First check if your sqlite3 has JSON1 and Math functions enabled: [Test Sqlite3](#test-sqlite3) If it is not enabled, you need to compile sqlite3 and use the built-in compile-time option to enable this extension.
 
 #### Configure Sqlite3
 
@@ -111,7 +111,7 @@ First check if your sqlite3 has JSON1 enabled: [Test JSON1](#test-json1) If it i
 
 2. I used the following command on CentOS to compile sqlite3 with the JSON1 extension but things may differ between OS
 
-		gcc -Os -I. -DSQLITE_THREADSAFE=0 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_EXPLAIN_COMMENTS shell.c sqlite3.c -ldl -lm -o sqlite3
+		gcc -Os -I. -DSQLITE_THREADSAFE=0 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_EXPLAIN_COMMENTS -DSQLITE_ENABLE_MATH_FUNCTIONS shell.c sqlite3.c -ldl -lm -o sqlite3
 
 Check out the docs for more info: https://www.sqlite.org/howtocompile.html
 
@@ -122,17 +122,21 @@ To test if you have the json1 extension enabled, run your compiled sqlite3 and t
 	sqlite> select json('{"this": "is", "a":["test"]}');
 	{"this":"is","a":["test"]}
 
+	sqlite> select log(1));
+	0
+
+
 If there are any errors, something went wrong with the sqlite compilation.
 
 #### Download dependencies
 
 	npm i
 
-> You need to build the sqlite3 npm package from source using your compiled sqlite3 with JSON1 enabled
+> You need to build the sqlite3 npm package from source using the directory that contains your compiled sqlite3 with JSON1 and Math enabled
 > 
 	npm remove sqlite3
 
-	npm i sqlite3 --build-from-source=path/to/sqlite3/with/json1
+	npm i sqlite3 --build-from-source --sqlite=path/to/sqlite3/dir/
 
 #### Configure app
 
