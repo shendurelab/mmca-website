@@ -67,7 +67,7 @@ process_data_request = (params, res) => {
     return res.status(500).json({ 'error': `Invalid query parameters ${JSON.stringify(params)}` });
   }
 
-
+console.log(sql);
   db.all(sql, (err, rows) => {
     if (err) {
       return res.status(500).json({ 'error': `Database encountered an error: ${err}` });
