@@ -1,8 +1,9 @@
 {
   "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.8",
     "express": "^4.17.1",
     "nodemon": "^2.0.15",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "https://github.com/mapbox/node-sqlite3/tarball/master"
   },
   "name": "mmca-website",
   "version": "1.0.0",
