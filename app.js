@@ -21,7 +21,7 @@ const db = new sqlite3.Database(__db_path__, sqlite3.OPEN_READONLY, (err) => {
 });
 
 app.get('/mmca_v2', (_, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'))
+  res.sendFile(path.join(__dirname, 'public/about.html'))
 });
 
 app.get('/mmca_v2/data', (req, res) => {
@@ -67,7 +67,7 @@ process_data_request = (params, res) => {
     return res.status(500).json({ 'error': `Invalid query parameters ${JSON.stringify(params)}` });
   }
 
-console.log(sql);
+  console.log(sql);
   db.all(sql, (err, rows) => {
     if (err) {
       return res.status(500).json({ 'error': `Database encountered an error: ${err}` });

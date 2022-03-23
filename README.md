@@ -101,42 +101,15 @@ OR
 
 ## Install
 
-You need to have a build of sqlite with the [JSON1 extension](https://www.sqlite.org/json1.html) and [Math Functions](https://www.sqlite.org/lang_mathfunc.html) enabled.
-
-First check if your sqlite3 has JSON1 and Math functions enabled: [Test Sqlite3](#test-sqlite3) If it is not enabled, you need to compile sqlite3 and use the built-in compile-time option to enable this extension.
-
-#### Configure Sqlite3
-
-1. Download the amalgamation from https://www.sqlite.org/download.html
-
-2. I used the following command on CentOS to compile sqlite3 with the JSON1 extension but things may differ between OS
-
-		gcc -Os -I. -DSQLITE_THREADSAFE=0 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_EXPLAIN_COMMENTS -DSQLITE_ENABLE_MATH_FUNCTIONS shell.c sqlite3.c -ldl -lm -o sqlite3
-
-Check out the docs for more info: https://www.sqlite.org/howtocompile.html
-
-#### Test JSON1
-
-To test if you have the json1 extension enabled, run your compiled sqlite3 and try following select statement:
-
-	sqlite> select json('{"this": "is", "a":["test"]}');
-	{"this":"is","a":["test"]}
-
-	sqlite> select log(1));
-	0
-
-
-If there are any errors, something went wrong with the sqlite compilation.
-
 #### Download dependencies
 
 	npm i
 
-> You need to build the sqlite3 npm package from source using the directory that contains your compiled sqlite3 with JSON1 and Math enabled
-> 
+> You need to build the sqlite3 npm package from source. This will enable the JSON1 and Math functions. If you are getting errors with SQLITE try to reinstall the sqlite3 npm package
+ 
 	npm remove sqlite3
 
-	npm i sqlite3 --build-from-source --sqlite=path/to/sqlite3/dir/
+	npm i https://github.com/mapbox/node-sqlite3/tarball/master --build-from-source
 
 #### Configure app
 
@@ -144,7 +117,7 @@ If there are any errors, something went wrong with the sqlite compilation.
 
 2. Edit `public/js/global.example.js` with the correct path to the database file
 
-3. Save as `global.js`
+3. Save copy as `global.js`
 
 #### Start server
 
@@ -152,24 +125,6 @@ If there are any errors, something went wrong with the sqlite compilation.
 
 ## TODO
 
-- Allow users to use their own cell x gene data
-	- This will need to be implemented as a separate application
 - Add mutant scores as an annotation
-- Upgrade to posrgres
-- Use webgl instead of plotly
-- Use SPA framework for front end (if more front end flexibility is needed)
-- Intro Page
-	- Description
-	- Link to paper
-	- Link to the Data tab
-	- link to download tab
-- Download Page
-	- sections?
-	- look at the previous cell atlas
-- Trajecotyr order
-	- order by size
-- Increase size
-- Gene expr normalization
-- log normalized expression
 - tool tips
 	- Not imediate hover
