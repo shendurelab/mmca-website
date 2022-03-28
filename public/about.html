@@ -37,8 +37,11 @@
         </ul>
     </nav>
     <div class="container">
-        <h2 class="page-title">Mouse Mutant Cell Atlas</h2>
-        <h3>About</h3>
+        <div style="display: flex; align-items: self-end;">
+            <h2 class="page-title" style="flex-grow: 3;">About</h2>
+            <button class="button-primary" onclick="location.href='/mmca_v2/public/index.html'" type="button">Go to Data
+                Vizualization</button>
+        </div>
         <p></p>
         <div class="container">
             <p>In the mutant mouse cell atlas (MMCA) we profiled 101 mouse embryos from 22 mutant strains and their
@@ -54,7 +57,7 @@
                 for
                 further mutant exploration.
             </p>
-            <img src="mmca_v2/public/images/about.png" alt="" width="100%">
+            <img src="/mmca_v2/public/images/about.png" alt="" width="100%">
             <p>This app visualizes the cell x gene data from mutant and wild-type mice. Each cell's main and
                 sub-developmental trajectories were determined using the <a
                     href="https://umap-learn.readthedocs.io/en/latest/how_umap_works.html">UMAP algorithm</a>. The
