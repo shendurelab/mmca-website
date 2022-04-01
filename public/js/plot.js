@@ -15,7 +15,7 @@ export default class Plot {
   detail = "annotation";
   traces = [];
   colors = {};
-  legendVisible = true;
+  legendVisible = false;
 
   constructor(plot_id, background_id, mutant_id, trajectory_id, annotation_id, gene_id, gene_w_id, legend_id, loading_id, apply_id, title_id) {
     this.plot_id = plot_id;
@@ -49,20 +49,24 @@ export default class Plot {
     console.log('done generating traces')
 
     let layout = {
-      // scene: {
-      //   xaxis: {
-      //     visible: false
-      //   },
-      //   yaxis: {
-      //     visible: false
-      //   },
-      //   zaxis: {
-      //     visible: false
-      //   }
-      // },
+      scene: {
+        xaxis: {
+          // visible: false
+          showticklabels: false
+        },
+        yaxis: {
+          // visible: false
+          showticklabels: false
+        },
+        zaxis: {
+          // visible: false
+          showticklabels: false
+        }
+      },
       height: 600,
       margin: { l: 0, r: 0, b: 0, t: 0 },
-      legend: { bgcolor: 'rgba(255,255,255,0.6)', yanchor: "top", y: 0.95, xanchor: "right", x: 0.99 }
+      legend: { bgcolor: 'rgba(255,255,255,0.6)', yanchor: "top", y: 0.95, xanchor: "right", x: 0.99 },
+      showlegend: this.legendVisible
     };
 
     await Plotly.newPlot(this.plot_id, traces, layout, { responsive: true })
