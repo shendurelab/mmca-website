@@ -228,11 +228,11 @@ export default class Plot {
     if (this.detail == 'gene') {
       colored_by = `${this.gene_selector.value} gene expression`
     } else {
-      colored_by = `${this.annotation_selector.value}`
+      colored_by = `${this.annotation_selector.value.replace('_', ' ')}`
     }
     this.title.innerHTML = `Mouse cells in the ${this.trajectory_selector.value}
                             with ${this.background_selector.value} background
-                            and ${this.mutant_selector.value} mutation
+                            and ${mutant_map[this.mutant_selector.value] ? mutant_map[this.mutant_selector.value] : this.mutant_selector.value} mutation
                             colored by ${colored_by}`
   }
 
