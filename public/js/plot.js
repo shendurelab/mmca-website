@@ -52,15 +52,18 @@ export default class Plot {
       scene: {
         xaxis: {
           // visible: false
-          showticklabels: false
+          showticklabels: false,
+          title: { text: "UMAP 1" }
         },
         yaxis: {
           // visible: false
-          showticklabels: false
+          showticklabels: false,
+          title: { text: "UMAP 2" }
         },
         zaxis: {
           // visible: false
-          showticklabels: false
+          showticklabels: false,
+          title: { text: "UMAP 3" }
         }
       },
       height: 600,
@@ -78,8 +81,13 @@ export default class Plot {
   async update_plot() {
     console.log('updating');
     let old_traces_length = this.traces.length;
+    try {
+      await this.#generate_traces();
+    } catch (err) {
+      document.getElementById("error-message").innerHTML = err;
+      return
+    }
     Plotly.deleteTraces(this.plot_id, [...Array(old_traces_length).keys()]);
-    await this.#generate_traces();
     this.#update_title();
     Plotly.addTraces(this.plot_id, [...this.traces]);
     this.loading_div.classList.remove('lds-ellipsis');
@@ -87,7 +95,13 @@ export default class Plot {
 
   async #generate_traces() {
     this.loading_div.classList.add('lds-ellipsis');
-    let data = await this.#fetch_data();
+    let data;
+    try {
+      data = await this.#fetch_data();
+    } catch (err) {
+      this.loading_div.classList.remove('lds-ellipsis');
+      throw err
+    }
     console.log(data);
     let filtered_data = [];
     let traces = [];
@@ -134,6 +148,11 @@ export default class Plot {
   }
 
   async #fetch_data() {
+
+    if (this.detail == 'gene' & !this.gene_selector.value) {
+      throw "Please Select a Gene"
+    }
+
     let params = {
       "background": this.background_selector.value,
       "trajectory": this.trajectory_selector.value,
@@ -142,14 +161,12 @@ export default class Plot {
       "gene": this.detail == 'gene' ? this.gene_selector.value : ''
     }
 
-    try {
-      console.log('fetching data');
-      const res = await fetch('/mmca_v2/data?' + new URLSearchParams(params));
-      return res.json();
-
-    } catch (err) {
-      console.error(err);
+    console.log('fetching data');
+    const res = await fetch('/mmca_v2/data?' + new URLSearchParams(params));
+    if (!res.ok) {
+      throw "Database Error"
     }
+    return res.json();
   }
 
   #add_listeners() {
@@ -185,6 +202,7 @@ export default class Plot {
     });
 
     this.apply.addEventListener('click', () => {
+      document.getElementById("error-message").innerHTML = "";
       this.update_plot();
       $(this.apply).removeClass("button-primary");
     });
@@ -196,7 +214,7 @@ export default class Plot {
 
     let gene_list = document.createElement('div');
     gene_list.setAttribute('class', 'autocomplete-list');
-    this.gene_selector.parentNode.parentNode.appendChild(gene_list);
+    this.gene_selector.parentNode.parentNode.insertBefore(gene_list, this.gene_selector.parentNode.nextSibling);
 
     for (const gene of genes) {
       if (gene.toLowerCase().includes(text.toLowerCase()) && text) {

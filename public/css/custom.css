@@ -151,7 +151,7 @@ label {
 .autocomplete-list {
   position: absolute;
   border: 1px solid #d4d4d4;
-  top: 100%;
+  top: 90%;
   z-index: 99;
   max-height: 50vh;
   overflow: auto;
@@ -198,6 +198,15 @@ label {
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltip-text {
   visibility: visible;
+}
+
+.error-hidden {
+  display: hidden;
+}
+
+#error-message {
+  text-align: center;
+  color: red;
 }
 
 /* Loading animation */
