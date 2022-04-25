@@ -15,7 +15,7 @@ export default class Plot {
   detail = "annotation";
   traces = [];
   colors = {};
-  legendVisible = false;
+  legendVisible = true;
 
   constructor(plot_id, background_id, mutant_id, trajectory_id, annotation_id, gene_id, gene_w_id, legend_id, loading_id, apply_id, title_id) {
     this.plot_id = plot_id;
